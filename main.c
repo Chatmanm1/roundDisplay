@@ -4,6 +4,10 @@
 //https://github.com/adafruit/Adafruit_GC9A01A
 // most code taken from https://dronebotworkshop.com/gc9a01/
 
+///wireing diagram
+//https://i0.wp.com/dronebotworkshop.com/wp-content/uploads/2022/06/GC9A01-arduino-hookup.jpg?w=768&ssl=1
+
+
 #define TFT_DC 9
 #define TFT_CS 10 // define where to plug in.
  
