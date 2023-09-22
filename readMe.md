@@ -1,0 +1,7 @@
+### Rouned Display
+
+
+#### Scope
+This is a basic project to learn/utilize a 1.28" GC9A01 round LCD Display with Arduino Nano. I've created a basic "desk houssing" and intend on using the display to show basic computer notifications/information. I will nead to write a python application as well as interphase with the nano passing information.
+
+
