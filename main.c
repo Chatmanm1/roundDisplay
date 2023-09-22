@@ -30,9 +30,14 @@ void loop(void) {
   for(uint8_t rotation=0; rotation<4; rotation++) {
     tft.setRotation(rotation);
     testFillScreen();
+    if(Serial.available()) {
+    String data = Serial.readStringUntil('\n');
+    Serial.println(data)
     delay(1000);
-  }
-}
+    
+  }//end serial
+}//end for
+}//end loop
  
 unsigned long testFillScreen() {
   unsigned long start = micros();
