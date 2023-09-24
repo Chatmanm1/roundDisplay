@@ -7,10 +7,13 @@
 ///wireing diagram
 //https://i0.wp.com/dronebotworkshop.com/wp-content/uploads/2022/06/GC9A01-arduino-hookup.jpg?w=768&ssl=1
 
+#define TFT_RST 1
+#define TFT_CS 5
+#define TFT_DC 6
+#define TFT_SDA 7
+#define TFT_SCL 8
 
-#define TFT_DC 9
-#define TFT_CS 10 // define where to plug in.
- 
+
 // Hardware SPI on Feather or other boards
 Adafruit_GC9A01A tft(TFT_CS, TFT_DC);
  
@@ -32,7 +35,7 @@ void loop(void) {
     testFillScreen();
     if(Serial.available()) {
     String data = Serial.readStringUntil('\n');
-    Serial.println(data)
+    Serial.println(data);
     delay(1000);
     
   }//end serial
@@ -51,11 +54,5 @@ unsigned long testFillScreen() {
   yield();
   tft.fillScreen(GC9A01A_BLACK);
   yield();
-  tft.fillScreen(epd_bitmap_allArray[0])
-  yield();
-  tft.fillScreen(epd_bitmap_allArray[1])
-  yield();
-  tft.fillScreen(epd_bitmap_allArray[2])
-  yield();
-  tft.fillScreen(epd_bitmap_allArray[3])
+
 }
