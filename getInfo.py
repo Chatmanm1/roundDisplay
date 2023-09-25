@@ -5,8 +5,6 @@ import psutil
 import serial
 
 
-ser = serial.Serial('COM3', 9600) 
-
 
 
 class App():
@@ -36,11 +34,9 @@ class App():
         self.label2.configure(text=mem)
         self.root.after(1000, self.update_mem)
         
-    
-ser.write(psutil.cpu_percent(interval=1))
-ser.write(psutil.virtual_memory().percent)
+
 app=App()
-ser.close()
+
 
 
 
