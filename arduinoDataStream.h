@@ -6,6 +6,6 @@ if(Serial.available()) {
 
 }///end data display
   tft.setCursor(0, 0);
-  tft.setTextColor(GC9A01A_WHITE);  tft.setTextSize(1);
+  tft.setTextColor(GC9A01A_WHITE);  tft.setTextSize(3);
   tft.println(message);
 }

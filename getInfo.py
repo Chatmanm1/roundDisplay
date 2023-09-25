@@ -37,12 +37,13 @@ class App():
         self.root.after(1000, self.update_mem)
         
     
-ser.write(cpu.encode())
+ser.write(psutil.cpu_percent(interval=1))
+ser.write(psutil.virtual_memory().percent)
 app=App()
-
-
-
 ser.close()
+
+
+
 
 
 
