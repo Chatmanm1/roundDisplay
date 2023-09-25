@@ -2,7 +2,7 @@
 import tkinter as tk
 import time
 import psutil
-import serial
+
 
 
 
