@@ -2,6 +2,12 @@
 import tkinter as tk
 import time
 import psutil
+import serial
+
+
+ser = serial.Serial('COM3', 9600) 
+
+
 
 class App():
     def __init__(self):
@@ -31,16 +37,14 @@ class App():
         self.root.after(1000, self.update_mem)
         
     
-
+ser.write(cpu.encode())
 app=App()
 
 
 
-
+ser.close()
 
 
 
 
     
-
-        
