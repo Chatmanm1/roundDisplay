@@ -12,4 +12,3 @@ This is a basic project to learn/utilize a 1.28" GC9A01 round LCD Display with A
 - have slight interaction with user via pots and motors. 
 
 
-
