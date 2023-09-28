@@ -10,10 +10,8 @@ from bs4 import BeautifulSoup
 class App():
     def __init__(self):
         self.root = tk.Tk()
-      
         self.label1 = tk.Label(text="CPU")
         self.label1.pack()
-       
         self.update_cpu()
         self.label2 = tk.Label(text="Memory")
         self.label2.pack()
@@ -30,11 +28,11 @@ class App():
 
     def update_cpu(self):
         cpu = psutil.cpu_percent(interval=1)
-        self.label1.configure(text=cpu)
+        self.label1.configure(text=str(cpu)+"% CPU")
         self.root.after(4000, self.update_cpu)
     def update_mem(self):
         mem = psutil.virtual_memory().percent
-        self.label2.configure(text=mem)
+        self.label2.configure(text=str(mem)+"% mem")
         self.root.after(4000, self.update_mem)
     def getWeather(self):
         # enter city name
@@ -53,6 +51,7 @@ class App():
     
 
 app=App()
+
 
 
 
