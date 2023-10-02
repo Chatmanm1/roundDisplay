@@ -1,4 +1,4 @@
-
+   
 #include "SPI.h"
 #include "Adafruit_GFX.h"
 #include "Adafruit_GC9A01A.h"
@@ -19,7 +19,7 @@ void setup() {
 }
  
 void loop(void) {
-  
+    tft.setRotation(2);
   writeText();
 }
  
@@ -31,14 +31,13 @@ void loop(void) {
 unsigned long writeText() {
   tft.setTextColor(GC9A01A_WHITE);
   tft.setCursor(30, 120);
-  tft.setTextSize(3);
+  tft.setTextSize(2);
   // send data only when you receive data:
   if (Serial.available() > 0) {
      tft.fillScreen(GC9A01A_BLACK);
     // read the incoming byte:
       teststr = Serial.readString();
     // say what you got:
-   
    }
    tft.println(teststr);
  
