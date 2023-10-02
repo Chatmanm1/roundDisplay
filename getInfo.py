@@ -21,7 +21,7 @@ class App():
         self.label3.pack()
         self.getWeather()
 
-        
+      
         self.root.mainloop()
         
 
@@ -30,10 +30,16 @@ class App():
         cpu = psutil.cpu_percent(interval=1)
         self.label1.configure(text=str(cpu)+"% CPU")
         self.root.after(4000, self.update_cpu)
+        cpuString = str(cpu).encode()
+        ser.write(cpuString)
+        ser.write(b'% CPU')
     def update_mem(self):
         mem = psutil.virtual_memory().percent
         self.label2.configure(text=str(mem)+"% mem")
         self.root.after(4000, self.update_mem)
+        memString = str(mem).encode()
+        ser.write(memString)
+        ser.write(b'% MEM')
     def getWeather(self):
         # enter city name
         city = "Des Moines"
@@ -51,6 +57,15 @@ class App():
     
 
 app=App()
+
+
+
+
+
+
+
+    
+
 
 
 
