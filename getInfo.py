@@ -48,11 +48,14 @@ class App():
         html = requests.get(url).content
         soup = BeautifulSoup(html, 'html.parser')
         temp = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
-        str = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
-        data = str.split('\n')
+        str2 = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
+        data = str2.split('\n')
         time = data[0]
         self.label3.configure(text=time)
         self.root.after(30000, self.getWeather)
+        timeString = str(time).encode()
+        ser.write(timeString)
+        ser.write(b' in DSM')
 
   
               
