@@ -17,6 +17,7 @@ ser = serial.Serial("COM11", 9600)
 class App():
     def __init__(self):
         self.root = tk.Tk()
+        self.root.title("Glass Info")
         self.label1 = tk.Label(text="CPU")
         self.label1.pack()
         self.update_cpu()
