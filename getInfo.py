@@ -20,7 +20,10 @@ class App():
         self.update_mem()
         self.label3 = tk.Label(text="")
         self.label3.pack()
-        self.getWeather()      
+        self.label4 = tk.Label(text="")
+        self.label4.pack()
+        self.getWeather()
+        
         self.root.mainloop()
         
 
@@ -44,8 +47,10 @@ class App():
         data = str.split('\n')
         time = data[0]
         sky = data[1]
+        self.label4.configure(text=time)   
         self.label3.configure(text=temp+" "+sky)
         self.root.after(30000, self.getWeather)
+        
           
     
 
