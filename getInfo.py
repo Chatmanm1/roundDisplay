@@ -24,9 +24,6 @@ class App():
         self.label2 = tk.Label(text="Memory")
         self.label2.pack()
         self.update_mem()
-        self.label3 = tk.Label(text="")
-        self.label3.pack()
-        self.getWeather()
         self.root.mainloop()
     def update_cpu(self):
         cpu = psutil.cpu_percent(interval=1)
@@ -42,24 +39,7 @@ class App():
         memString = str(mem).encode()
         ser.write(memString)
         ser.write(b'% MEM')
-    def getWeather(self):
-        #enter City Name
-        city = "Des Moines"
-        url = "https://www.google.com/search?q="+"weather"+city
-        html = requests.get(url).content
-        soup = BeautifulSoup(html, 'html.parser')
-        temp = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
-        str2 = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
-        data = str2.split('\n')
-        time = data[0]
-        self.label3.configure(text=time)
-        self.root.after(30000, self.getWeather)
-        timeString = str(time).encode()
-        ser.write(timeString)
-        ser.write(b' in DSM')
 
-  
-              
     
 
 app=App()
