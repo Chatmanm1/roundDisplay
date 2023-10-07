@@ -4,11 +4,14 @@ import time
 import psutil
 import requests
 from bs4 import BeautifulSoup
+import serial
 
+ser = serial.Serial("COM11", 9600)
 
 
 class App():
     def __init__(self):
+        
         self.root = tk.Tk()
         self.root.title("Glass Info")
        # self.iconbitmap("C:/Users/mchatman/Desktop/cube.ico")
@@ -22,8 +25,7 @@ class App():
         self.label3.pack()
         self.label4 = tk.Label(text="")
         self.label4.pack()
-        self.getWeather()
-        
+        self.getWeather() 
         self.root.mainloop()
         
 
@@ -31,11 +33,17 @@ class App():
     def update_cpu(self):
         cpu = psutil.cpu_percent(interval=1)
         self.label1.configure(text=str(cpu)+"% CPU")
-        self.root.after(4000, self.update_cpu)
+        cpu_message = f"CPU: {cpu}%"
+        ser.write(cpu_message.encode())
+        self.root.after(5000, self.update_cpu)
+     
     def update_mem(self):
         mem = psutil.virtual_memory().percent
         self.label2.configure(text=str(mem)+"% mem")
-        self.root.after(4000, self.update_mem)
+        mem_message = f"MEM: {mem}%"
+        ser.write(mem_message.encode())
+        self.root.after(4001, self.update_mem)
+        
     def getWeather(self):
         # enter city name
         city = "Des Moines"
@@ -49,6 +57,8 @@ class App():
         sky = data[1]
         self.label4.configure(text=time)   
         self.label3.configure(text=temp+" "+sky)
+        temp_message = f"TEMP: {sky}"
+        ser.write(temp_message.encode())     
         self.root.after(30000, self.getWeather)
         
           
