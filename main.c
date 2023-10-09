@@ -30,10 +30,7 @@ int yPos = 100;
   writeText();
   tft.setCursor(10, 120);
   tft.fillScreen(GC9A01A_BLACK);
-  for (int i = teststr.length() - 1; i >= 0; i--) {
-    tft.drawChar(xPos, yPos, teststr[i],GC9A01A_WHITE, GC9A01A_BLACK, 2);
-    xPos += 10; // Adjust the spacing between characters if needed
-    }
+
  
  
 }
@@ -53,10 +50,7 @@ unsigned long writeText() {
     // read the incoming byte:
       teststr = Serial.readString();
     // say what you got:
-        for (int i = teststr.length() - 1; i >= 0; i--) {//write it backwards
-    tft.drawChar(xPos, yPos, teststr[i],GC9A01A_WHITE, GC9A01A_BLACK, 2);
-    xPos += 10; // Adjust the spacing between characters if needed
-    }
+      tft.println(teststr);
    }
 
 
@@ -64,10 +58,14 @@ unsigned long writeText() {
 
  
  
-  delay(2000);
+  delay(10000);
  
 }
 
 
 
-
+//reverse writing
+// for (int i = teststr.length() - 1; i >= 0; i--) {//write it backwards
+//     tft.drawChar(xPos, yPos, teststr[i],GC9A01A_WHITE, GC9A01A_BLACK, 2);
+//     xPos += 10; // Adjust the spacing between characters if needed
+//     }
