@@ -11,10 +11,13 @@
 int timer;
 int xPos = 100;
 int yPos = 100;
+// state machine to cycle through diaplsy
+int displayInfo = 1; 
+
 
 // Hardware SPI on Feather or other boards
 Adafruit_GC9A01A tft(TFT_CS, TFT_DC,TFT_DIN,TFT_CLK);
- String teststr = "HoloCube";// for incoming serial data
+ String teststr = "Starting value";// for incoming serial data
 void setup() {
   Serial.begin(9600);
   tft.fillScreen(GC9A01A_BLACK);
@@ -25,13 +28,11 @@ void setup() {
 }
  
 void loop(void) {
-  int xPos = 20;
-int yPos = 100;
+  tft.setCursor(xPos, yPos);
   writeText();
-  tft.setCursor(10, 120);
-  tft.fillScreen(GC9A01A_BLACK);
 
- 
+
+   delay(5000);/// do loop ever 5 seconds.
  
 }
  
@@ -42,15 +43,30 @@ int yPos = 100;
 
 unsigned long writeText() {
   tft.setTextColor(GC9A01A_WHITE);
-  tft.setCursor(50, 120);
+  tft.setCursor(xPos, yPos);
   tft.setTextSize(2);
   // send data only when you receive data:
-  if (Serial.available() > 0) {//reading from serial
+if (Serial.available() > 0) {//reading from serial
      tft.fillScreen(GC9A01A_BLACK);
     // read the incoming byte:
-      teststr = Serial.readString();
-    // say what you got:
-      tft.println(teststr);
+      teststr = Serial.readStringUntil('\n');
+  if(teststr.charAt(0)=='M'&& displayInfo == 1){
+       tft.println(teststr);
+       tft.println("Memory Usage");
+       displayInfo = displayInfo +1;
+  }// end if M
+
+  if(teststr.charAt(0)=='C'&& displayInfo == 2){
+       tft.println(teststr);
+       tft.println("CPU Usage");
+       displayInfo = displayInfo +1;
+  }// end if C
+  if(teststr.charAt(0)=='W'&& displayInfo == 3){
+       tft.println(teststr);
+       tft.println("Weather");
+       displayInfo =1;
+  }// end if w
+    // say what you got
    }
 
 
@@ -58,7 +74,7 @@ unsigned long writeText() {
 
  
  
-  delay(10000);
+
  
 }
 
