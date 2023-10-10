@@ -32,14 +32,14 @@ class App():
 
     def update_cpu(self):
         cpu = psutil.cpu_percent(interval=1)
-        self.label1.configure(text=str(cpu)+"% CPU")
+        self.label1.configure(text="C"+str(cpu)+"% CPU")
         cpu_message = f"CPU: {cpu}%"
         ser.write(cpu_message.encode())
         self.root.after(5000, self.update_cpu)
      
     def update_mem(self):
         mem = psutil.virtual_memory().percent
-        self.label2.configure(text=str(mem)+"% mem")
+        self.label2.configure(text="M"+str(mem)+"% mem")
         mem_message = f"MEM: {mem}%"
         ser.write(mem_message.encode())
         self.root.after(4001, self.update_mem)
@@ -56,7 +56,7 @@ class App():
         time = data[0]
         sky = data[1]
         self.label4.configure(text=time)   
-        self.label3.configure(text=temp+" "+sky)
+        self.label3.configure(text="W"+temp+" "+sky)
         temp_message = f"TEMP: {sky}"
         ser.write(temp_message.encode())     
         self.root.after(30000, self.getWeather)
