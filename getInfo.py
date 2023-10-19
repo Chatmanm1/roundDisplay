@@ -4,9 +4,7 @@ import time
 import psutil
 import requests
 from bs4 import BeautifulSoup
-import serial
 
-ser = serial.Serial("COM11", 9600)
 
 
 class App():
@@ -34,14 +32,12 @@ class App():
         cpu = psutil.cpu_percent(interval=1)
         self.label1.configure(text="C"+str(cpu)+"% CPU")
         cpu_message = f"CPU: {cpu}%"
-        ser.write(cpu_message.encode())
         self.root.after(5000, self.update_cpu)
      
     def update_mem(self):
         mem = psutil.virtual_memory().percent
         self.label2.configure(text="M"+str(mem)+"% mem")
         mem_message = f"MEM: {mem}%"
-        ser.write(mem_message.encode())
         self.root.after(4001, self.update_mem)
         
     def getWeather(self):
@@ -57,8 +53,7 @@ class App():
         sky = data[1]
         self.label4.configure(text=time)   
         self.label3.configure(text="W"+temp+" "+sky)
-        temp_message = f"TEMP: {sky}"
-        ser.write(temp_message.encode())     
+        temp_message = f"TEMP: {sky}"  
         self.root.after(30000, self.getWeather)
         
           
