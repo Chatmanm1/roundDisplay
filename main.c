@@ -3,6 +3,7 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_GC9A01A.h"
 #include "modifiedCPP.cpp"
+
  
 #define TFT_DC 16
 #define TFT_CS 10
@@ -11,7 +12,7 @@
 
 int timer;
 int xPos = 20;
-int yPos = 80;
+int yPos = 100;
 // state machine to cycle through diaplsy
 int displayInfo = 1; 
 
@@ -25,15 +26,16 @@ void setup() {
   Serial.println("GC9A01A Test!");
  
   tft.begin();
-   tft.setRotation(0);
+   tft.setRotation(2);
 }
  
 void loop(void) {
+  displayInfo = 1;
   tft.setCursor(xPos, yPos);
   writeText();
 
 
-   delay(5000);/// do loop ever 5 seconds.
+   delay(1000);/// do loop ever 5 seconds.
  
 }
  
@@ -43,6 +45,7 @@ void loop(void) {
  
 
 unsigned long writeText() {
+  tft.println("start of WriteText");
   tft.setTextColor(GC9A01A_WHITE);
   tft.setCursor(xPos, yPos);
   tft.setTextSize(2);
