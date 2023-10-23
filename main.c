@@ -2,6 +2,7 @@
 #include "SPI.h"
 #include "Adafruit_GFX.h"
 #include "Adafruit_GC9A01A.h"
+#include "modifiedCPP.cpp"
  
 #define TFT_DC 16
 #define TFT_CS 10
@@ -9,8 +10,8 @@
 #define TFT_CLK 14
 
 int timer;
-int xPos = 100;
-int yPos = 100;
+int xPos = 20;
+int yPos = 80;
 // state machine to cycle through diaplsy
 int displayInfo = 1; 
 
