@@ -1,8 +1,10 @@
 
+
+
 #include "SPI.h"
-#include "Adafruit_GFX.h"
-#include "Adafruit_GC9A01A.h"
-#include "modifiedCPP.cpp"
+#include "Adafruit_GC9A01A_MOD.h"
+
+
 
  
 #define TFT_DC 16
@@ -11,32 +13,37 @@
 #define TFT_CLK 14
 
 int timer;
-int xPos = 20;
-int yPos = 100;
+int xPos = 40;
+int yPos = 110;
 // state machine to cycle through diaplsy
 int displayInfo = 1; 
 
 
 // Hardware SPI on Feather or other boards
 Adafruit_GC9A01A tft(TFT_CS, TFT_DC,TFT_DIN,TFT_CLK);
- String teststr = "Starting value";// for incoming serial data
+ String teststr = "";// for incoming serial data
 void setup() {
-  Serial.begin(9600);
   tft.fillScreen(GC9A01A_BLACK);
-  Serial.println("GC9A01A Test!");
+  Serial.begin(9600);
+  
+  yPos = 130;
+ 
  
   tft.begin();
    tft.setRotation(2);
 }
  
 void loop(void) {
+  yPos = 110;
   displayInfo = 1;
+ 
+ 
+ 
   tft.setCursor(xPos, yPos);
   writeText();
 
 
-   delay(1000);/// do loop ever 5 seconds.
- 
+
 }
  
  
@@ -45,7 +52,7 @@ void loop(void) {
  
 
 unsigned long writeText() {
-  tft.println("start of WriteText");
+  
   tft.setTextColor(GC9A01A_WHITE);
   tft.setCursor(xPos, yPos);
   tft.setTextSize(2);
@@ -54,26 +61,24 @@ if (Serial.available() > 0) {//reading from serial
      tft.fillScreen(GC9A01A_BLACK);
     // read the incoming byte:
       teststr = Serial.readStringUntil('\n');
-  if(teststr.charAt(0)=='M'&& displayInfo == 1){
-       tft.println(teststr);
-       tft.println("Memory Usage");
-       displayInfo = displayInfo +1;
-  }// end if M
+  
+    // say what you got
+    tft.println(teststr);
+   }
+   
 
-  if(teststr.charAt(0)=='C'&& displayInfo == 2){
-       tft.println(teststr);
-       tft.println("CPU Usage");
-       displayInfo = displayInfo +1;
-  }// end if C
-  if(teststr.charAt(0)=='W'&& displayInfo == 3){
-       tft.println(teststr);
-       tft.println("Weather");
-       displayInfo =1;
-  }// end if w
+if (Serial.available() == 0) {//reading from serial
+     
+
+  tft.println(teststr);
+  delay(10000);
+  
+  teststr = "HoloCube";
+  tft.fillScreen(GC9A01A_BLACK);
+  
     // say what you got
    }
-
-
+   
  
 
  

@@ -31,7 +31,7 @@
  *
  */
 
-#include "Adafruit_GC9A01A.h"
+#include "Adafruit_GC9A01A_MOD.h"
 #ifndef ARDUINO_STM32_FEATHER
 #include "pins_arduino.h"
 #ifndef RASPI
@@ -58,7 +58,7 @@
 #define SPI_DEFAULT_FREQ 24000000 ///< Default SPI data clock frequency
 #endif
 
-#define MADCTL_MY 0x41  ///< Bottom to top
+#define MADCTL_MY 0x00  ///< Bottom to top
 #define MADCTL_MX 0x40  ///< Right to left
 #define MADCTL_MV 0x20  ///< Reverse Mode
 #define MADCTL_ML 0x10  ///< LCD refresh Bottom to top

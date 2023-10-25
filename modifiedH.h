@@ -1,4 +1,3 @@
-
 /*!
  * @file Adafruit_GC9A01A.h
  *
@@ -27,7 +26,6 @@
 #include <Adafruit_SPITFT.h>
 #include <Adafruit_SPITFT_Macros.h>
 #include <SPI.h>
-
 #define GC9A01A_TFTWIDTH 240  ///< Display width in pixels
 #define GC9A01A_TFTHEIGHT 240 ///< Display height in pixels
 

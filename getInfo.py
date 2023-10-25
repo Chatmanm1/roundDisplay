@@ -1,10 +1,16 @@
+
+
+
+
 # for python 3.x use 'tkinter' rather than 'Tkinter'
 import tkinter as tk
 import time
 import psutil
 import requests
 from bs4 import BeautifulSoup
+import serial
 
+ser = serial.Serial("COM11", 9600)
 
 
 class App():
@@ -24,25 +30,29 @@ class App():
         self.label4 = tk.Label(text="")
         self.label4.pack()
         self.getWeather()
-        
+        self.sendToDisp()
         self.root.mainloop()
         
 
 
     def update_cpu(self):
+        global strToSend
         cpu = psutil.cpu_percent(interval=1)
         self.label1.configure(text="C"+str(cpu)+"% CPU")
-        cpu_message = f"CPU: {cpu}%"
-        self.root.after(5000, self.update_cpu)
+        strToSend = f"CPU: {cpu}%"
+        self.root.after(1000, self.update_cpu)
      
     def update_mem(self):
+        global strToSend
         mem = psutil.virtual_memory().percent
         self.label2.configure(text="M"+str(mem)+"% mem")
         mem_message = f"MEM: {mem}%"
-        self.root.after(4001, self.update_mem)
+        strToSend = mem_message
+        self.root.after(3000, self.update_mem)
         
     def getWeather(self):
         # enter city name
+        global strToSend
         city = "Des Moines"
         url = "https://www.google.com/search?q=weather+des+moines&sca_esv=568775834&sxsrf=AM9HkKluiEWh_FJ4KxfXEkoCpoELVlrRKg%3A1695820224185&source=hp&ei=wCkUZe_0BPbMkPIP-aCh0AI&iflsig=AO6bgOgAAAAAZRQ30F9Q7KzAszBEr0XatF45A-I1mR67&ved=0ahUKEwjv1LzQ7sqBAxV2JkQIHXlQCCoQ4dUDCAw&uact=5&oq=weather+des+moines&gs_lp=Egdnd3Mtd2l6IhJ3ZWF0aGVyIGRlcyBtb2luZXMyCxAAGIAEGLEDGIMBMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESLcRUABY0BBwAHgAkAEAmAGRAqABzguqAQYxNS4yLjG4AQPIAQD4AQHCAgcQIxiKBRgnwgIEECMYJ8ICDhAAGIoFGLEDGIMBGJECwgIREC4YgAQYsQMYgwEYxwEY0QPCAggQABiABBixA8ICCBAAGIoFGJECwgILEC4YgAQYxwEYrwHCAgcQABiKBRhDwgINEAAYigUYsQMYgwEYQ8ICERAuGIoFGLEDGMcBGNEDGJECwgIIEAAYgAQYkgPCAggQABiKBRiSA8ICCRAAGIoFGAoYQ8ICCxAAGIoFGJIDGJECwgIUEC4YigUYsQMYgwEYxwEY0QMYkQLCAg8QIxiKBRgnGJ0CGEYYgALCAgsQABiKBRixAxiDAQ&sclient=gws-wiz"
         html = requests.get(url).content
@@ -54,17 +64,20 @@ class App():
         sky = data[1]
         self.label4.configure(text="T"+time)   
         self.label3.configure(text="W"+temp+" "+sky)
-        temp_message = f"TEMP: {sky}"  
+        strToSend = f"TEMP: {sky}"
+       
         self.root.after(30000, self.getWeather)
+        
+    def sendToDisp(self):
+        global strToSend
+        trunked = strToSend[:8]
+        ser.write(trunked.encode())
+        self.root.after(3000, self.sendToDisp)
         
           
     
 
 app=App()
-
-
-
-
 
 
 
