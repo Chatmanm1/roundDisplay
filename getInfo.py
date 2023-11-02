@@ -66,7 +66,7 @@ class App():
         self.label4.configure(text=time)   
         self.label3.configure(text=temp+" "+sky)
         weatherGlobal = f"{temp} {sky}"
-        weatherTrunked =  weatherGlobal[:12]
+        weatherTrunked =  weatherGlobal
         self.root.after(30000, self.getWeather)
         
     def sendToDisp(self):
