@@ -6,6 +6,8 @@ This is a basic project to learn/utilize a 1.28" GC9A01 round LCD Display with A
 
 The microcontroller is very limited with memory space so will need to communicate information to display over serial. 
 
+Due the reflective nature of the cube the header and cpp files needed to be rewritten as the stock files for the display did not support reflecting over Y series.
+
 ##### Features
 - Display relevant computer CPU/RAM/CPU Usage.
 - Send reactions via bumps taps etc. 
