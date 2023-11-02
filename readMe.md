@@ -16,3 +16,4 @@ Due the reflective nature of the cube the header and cpp files needed to be rewr
 - have slight interaction with user via pots and motors. 
 
 
+![image](https://github.com/Chatmanm1/roundDisplay/assets/96433082/39224d2f-4bf6-42d6-8abc-1d2ce0e38a71)
