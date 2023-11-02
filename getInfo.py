@@ -10,8 +10,9 @@ import requests
 from bs4 import BeautifulSoup
 import serial
 
-ser = serial.Serial("COM11", 9600)
-
+ser = serial.Serial("COM10", 9600)
+global counter
+counter = 0
 
 class App():
     def __init__(self):
@@ -36,23 +37,23 @@ class App():
 
 
     def update_cpu(self):
-        global strToSend
+        global cpuGlobal
         cpu = psutil.cpu_percent(interval=1)
-        self.label1.configure(text="C"+str(cpu)+"% CPU")
-        strToSend = f"CPU: {cpu}%"
-        self.root.after(1000, self.update_cpu)
+        self.label1.configure(text=str(cpu)+"% CPU")
+        cpuGlobal = f"CPU: {cpu}%"
+        self.root.after(2000, self.update_cpu)
      
     def update_mem(self):
-        global strToSend
+        global memGlobal
         mem = psutil.virtual_memory().percent
-        self.label2.configure(text="M"+str(mem)+"% mem")
+        self.label2.configure(text=str(mem)+"% mem")
         mem_message = f"MEM: {mem}%"
-        strToSend = mem_message
+        memGlobal = mem_message
         self.root.after(3000, self.update_mem)
         
     def getWeather(self):
         # enter city name
-        global strToSend
+        global weatherTrunked
         city = "Des Moines"
         url = "https://www.google.com/search?q=weather+des+moines&sca_esv=568775834&sxsrf=AM9HkKluiEWh_FJ4KxfXEkoCpoELVlrRKg%3A1695820224185&source=hp&ei=wCkUZe_0BPbMkPIP-aCh0AI&iflsig=AO6bgOgAAAAAZRQ30F9Q7KzAszBEr0XatF45A-I1mR67&ved=0ahUKEwjv1LzQ7sqBAxV2JkQIHXlQCCoQ4dUDCAw&uact=5&oq=weather+des+moines&gs_lp=Egdnd3Mtd2l6IhJ3ZWF0aGVyIGRlcyBtb2luZXMyCxAAGIAEGLEDGIMBMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESLcRUABY0BBwAHgAkAEAmAGRAqABzguqAQYxNS4yLjG4AQPIAQD4AQHCAgcQIxiKBRgnwgIEECMYJ8ICDhAAGIoFGLEDGIMBGJECwgIREC4YgAQYsQMYgwEYxwEY0QPCAggQABiABBixA8ICCBAAGIoFGJECwgILEC4YgAQYxwEYrwHCAgcQABiKBRhDwgINEAAYigUYsQMYgwEYQ8ICERAuGIoFGLEDGMcBGNEDGJECwgIIEAAYgAQYkgPCAggQABiKBRiSA8ICCRAAGIoFGAoYQ8ICCxAAGIoFGJIDGJECwgIUEC4YigUYsQMYgwEYxwEY0QMYkQLCAg8QIxiKBRgnGJ0CGEYYgALCAgsQABiKBRixAxiDAQ&sclient=gws-wiz"
         html = requests.get(url).content
@@ -62,17 +63,23 @@ class App():
         data = str.split('\n')
         time = data[0]
         sky = data[1]
-        self.label4.configure(text="T"+time)   
-        self.label3.configure(text="W"+temp+" "+sky)
-        strToSend = f"TEMP: {sky}"
-       
+        self.label4.configure(text=time)   
+        self.label3.configure(text=temp+" "+sky)
+        weatherGlobal = f"{temp} {sky}"
+        weatherTrunked =  weatherGlobal[:12]
         self.root.after(30000, self.getWeather)
         
     def sendToDisp(self):
-        global strToSend
-        trunked = strToSend[:8]
-        ser.write(trunked.encode())
-        self.root.after(3000, self.sendToDisp)
+        global cpuGlobal
+        global weatherTrunked
+        global memGlobal
+        global counter
+        trunked = [cpuGlobal,weatherTrunked,memGlobal]
+        ser.write(trunked[counter].encode())
+        self.root.after(10000, self.sendToDisp)
+        counter += 1
+        if counter > 2:
+            counter = 0
         
           
     
