@@ -10,10 +10,7 @@ Due the reflective nature of the cube the header and cpp files needed to be rewr
 
 ##### Features
 - Display relevant computer CPU/RAM/CPU Usage.
-- Send reactions via bumps taps etc. 
 - Be notification screen for email etc. 
-- read battery status of wireless devices and display / blink
-- have slight interaction with user via pots and motors. 
 
 
 ![image](https://github.com/Chatmanm1/roundDisplay/assets/96433082/39224d2f-4bf6-42d6-8abc-1d2ce0e38a71)
