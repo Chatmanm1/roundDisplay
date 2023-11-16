@@ -17,6 +17,10 @@ int xPos = 40;
 int yPos = 110;
 // state machine to cycle through diaplsy
 int displayInfo = 1; 
+String memoryString  = "MEM"
+String cpuString = "CPU"
+string weatherString = "Weath"
+
 
 
 // Hardware SPI on Feather or other boards
@@ -26,7 +30,7 @@ void setup() {
   tft.fillScreen(GC9A01A_BLACK);
   Serial.begin(9600);
   
-  yPos = 130;
+  yPos = 110;
  
  
   tft.begin();
@@ -61,9 +65,26 @@ if (Serial.available() > 0) {//reading from serial
      tft.fillScreen(GC9A01A_BLACK);
     // read the incoming byte:
       teststr = Serial.readStringUntil('\n');
+     
   
     // say what you got
-    tft.println(teststr);
+
+    ///get new values if delimeter is respective values
+    if(Serial.readString.substring(0,1) == "C"){
+      cpuString = Serial.readStringUntil('\n');
+    }
+    if(Serial.readString.substring(0,1) == "M"){
+      memoryStringString = Serial.readStringUntil('\n');
+    }
+    if(Serial.readString.substring(0,1) == "T"){
+      weatherString = Serial.readStringUntil('\n');
+    }
+
+    tft.println(cpuString);
+    yPos = 130;
+    tft.println(memoryString);
+    yPos = 150;
+    tft.println(weatherString);
    }
    
 
@@ -86,11 +107,3 @@ if (Serial.available() == 0) {//reading from serial
 
  
 }
-
-
-
-//reverse writing
-// for (int i = teststr.length() - 1; i >= 0; i--) {//write it backwards
-//     tft.drawChar(xPos, yPos, teststr[i],GC9A01A_WHITE, GC9A01A_BLACK, 2);
-//     xPos += 10; // Adjust the spacing between characters if needed
-//     }

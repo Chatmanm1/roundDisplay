@@ -65,7 +65,7 @@ class App():
         sky = data[1]
         self.label4.configure(text=time)   
         self.label3.configure(text=temp+" "+sky)
-        weatherGlobal = f"{temp} {sky}"
+        weatherGlobal = f"T:{temp} {sky}"
         weatherTrunked =  weatherGlobal
         self.root.after(30000, self.getWeather)
         
