@@ -1,4 +1,4 @@
-include "SPI.h"
+#include "SPI.h"
 #include "Adafruit_GC9A01A_MOD.h"
 
 #define TFT_DC 16
@@ -59,9 +59,19 @@ void writeText() {
   }
 
   if (Serial.available() == 0) {
+    tft.setCursor(xPos, yPos);
     tft.println(teststr);
+     xPos = 45;   
+     yPos = 130;
+    tft.setCursor(xPos, yPos);
+    tft.println("test");
+     xPos = 45;
+    yPos = 150;
+    tft.setCursor(xPos, yPos);
+    tft.println("test2");
     delay(10000);
     teststr = "HoloCube";
+
     tft.fillScreen(GC9A01A_BLACK);
   }
 }
