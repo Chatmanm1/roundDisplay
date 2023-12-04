@@ -1,7 +1,5 @@
 
 
-
-
 # for python 3.x use 'tkinter' rather than 'Tkinter'
 import tkinter as tk
 import time
@@ -12,11 +10,13 @@ import serial
 
 ser = serial.Serial("COM10", 9600)
 global counter
+global cpuGlobal
+global memGlobal
+global weatherTrunked
 counter = 0
 
 class App():
     def __init__(self):
-        
         self.root = tk.Tk()
         self.root.title("Glass Info")
        # self.iconbitmap("C:/Users/mchatman/Desktop/cube.ico")
@@ -33,8 +33,6 @@ class App():
         self.getWeather()
         self.sendToDisp()
         self.root.mainloop()
-        
-
 
     def update_cpu(self):
         global cpuGlobal
@@ -70,9 +68,6 @@ class App():
         self.root.after(30000, self.getWeather)
         
     def sendToDisp(self):
-        global cpuGlobal
-        global weatherTrunked
-        global memGlobal
         global counter
         trunked = [cpuGlobal,weatherTrunked,memGlobal]
         ser.write(trunked[counter].encode())
@@ -86,6 +81,3 @@ class App():
 
 app=App()
 
-
-
-    
