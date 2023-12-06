@@ -52,12 +52,17 @@ void writeText() {
     }
 ///always write these three to the screen.
     tft.println(cpuString);
+    xPos = 45;   
     yPos = 130;
     tft.setCursor(xPos, yPos);
     tft.println(memoryString);
+
+    xPos = 45;   
     yPos = 150;
     tft.setCursor(xPos, yPos);
     tft.println(weatherString);
+     xPos = 45;   
+     yPos = 130;
   }
 
   if (Serial.available() == 0) {
