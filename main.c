@@ -53,8 +53,10 @@ void writeText() {
 ///always write these three to the screen.
     tft.println(cpuString);
     yPos = 130;
+    tft.setCursor(xPos, yPos);
     tft.println(memoryString);
     yPos = 150;
+    tft.setCursor(xPos, yPos);
     tft.println(weatherString);
   }
 

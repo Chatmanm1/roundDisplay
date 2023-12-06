@@ -69,6 +69,9 @@ class App():
         
     def sendToDisp(self):
         global counter
+        global cpuGlobal
+        global weatherTrunked
+        global memGlobal
         trunked = [cpuGlobal,weatherTrunked,memGlobal]
         ser.write(trunked[counter].encode())
         self.root.after(10000, self.sendToDisp)
