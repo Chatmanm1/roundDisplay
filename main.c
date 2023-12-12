@@ -39,6 +39,7 @@ void writeText() {
 
   if (Serial.available() > 0) {
     tft.fillScreen(GC9A01A_BLACK);
+
     teststr = Serial.readStringUntil('\n');
 //check waht data received.
     if (teststr.substring(0, 1) == "C") {
@@ -66,18 +67,22 @@ void writeText() {
   }
 
   if (Serial.available() == 0) {
+    cpuString = "CPU"
+    memoryString =  "MEM"
+    weatherString =  "Weather"
+
     tft.setCursor(xPos, yPos);
-    tft.println(teststr);
+    tft.println(cpuString);
      xPos = 45;   
      yPos = 130;
     tft.setCursor(xPos, yPos);
-    tft.println("test");
+    tft.println(memoryString);
      xPos = 45;
     yPos = 150;
     tft.setCursor(xPos, yPos);
-    tft.println("test2");
+    tft.println(weatherString);
     delay(10000);
-    teststr = "HoloCube";
+   
 
     tft.fillScreen(GC9A01A_BLACK);
   }
